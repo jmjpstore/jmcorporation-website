@@ -1,0 +1,6 @@
+{
+  "name": "株式会社JMコーポレーション",
+  "description": "日本の中古車・重機・トラック買取および海外輸出専門サイト",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
