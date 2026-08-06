@@ -6,26 +6,19 @@
   }
 }
 
-/* Custom text stroke effect for Yellow High Value text (Matching image style: Bold Yellow + Thick Black Outline + Offset Drop Shadow) */
+/* Custom text stroke effect for Yellow High Value text (matching reference image) */
 .text-stroke-black {
-  font-family: 'M PLUS 1p', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-family: 'M PLUS 1p', 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
   font-weight: 900;
-  color: #FFE600;
   paint-order: stroke fill;
-  -webkit-text-stroke: 4.5px #000000;
-  filter: drop-shadow(4px 4px 0px #000000);
-  letter-spacing: -0.02em;
-}
-
-@media (min-width: 640px) {
-  .text-stroke-black {
-    -webkit-text-stroke: 7px #000000;
-    filter: drop-shadow(6px 6px 0px #000000);
-  }
+  -webkit-text-stroke: 10px #000000;
+  color: #FFE500;
+  text-shadow: 5px 5px 0px #000000, 3px 3px 0px #000000;
+  letter-spacing: 0.03em;
 }
 
 .text-impact-ja {
-  font-family: 'Dela Gothic One', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', sans-serif;
+  font-family: 'M PLUS 1p', 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
   font-weight: 900;
 }
 
