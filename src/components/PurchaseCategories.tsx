@@ -95,7 +95,7 @@ export const PurchaseCategories: React.FC<PurchaseCategoriesProps> = ({ lang, on
               </div>
 
               <div className="p-4 pt-0">
-                <div className="bg-slate-900/80 rounded-xl p-2.5 text-center text-xs font-bold text-amber-300 border border-slate-700">
+                <div className="bg-slate-900/80 rounded-xl p-2.5 text-center text-xs sm:text-sm font-black text-amber-300 border border-slate-700 text-impact-ja">
                   即出張査定・高額買取対応
                 </div>
               </div>

@@ -37,10 +37,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ lang, onScrollToForm, 
             {/* Catchphrase: HUGE Yellow Text with Outline */}
             <div className="space-y-3">
               <div className="flex flex-wrap items-baseline gap-2 sm:gap-3">
-                <span className="text-5xl sm:text-7xl lg:text-8xl font-black text-yellow-300 tracking-tight text-stroke-black drop-shadow-md">
+                <span className="text-5xl sm:text-7xl lg:text-8xl font-black text-stroke-black">
                   {t.hero.highValue}
                 </span>
-                <span className="text-2xl sm:text-4xl font-extrabold text-white">
+                <span className="text-2xl sm:text-4xl font-extrabold text-white text-impact-ja">
                   {lang === 'ja' ? '専門！' : 'SPECIALIST!'}
                 </span>
               </div>
