@@ -138,8 +138,8 @@ export const Header: React.FC<HeaderProps> = ({ lang, onToggleLang, onScrollToFo
             </span>
             <span className="truncate">
               {lang === 'ja'
-                ? '株式会社JMコーポレーションの「会社概要（代表挨拶・創業1999年・設立2017年）」は専用の別ページをご用意しております'
-                : 'JM Corp. Company Overview (est. 1999/inc. 2017) is available on a separate dedicated page'}
+                ? '会社概要（代表挨拶・沿革等）は専用ページで公開中'
+                : 'Company Overview is available on a dedicated page'}
             </span>
           </div>
           <button
