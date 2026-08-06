@@ -167,7 +167,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ lang, onScrollToForm, 
                 </div>
               </div>
               <a
-                href="https://line.me"
+                href="https://line.me/ti/p/TlDs6Db5eJ"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 flex items-center justify-center gap-2 bg-[#24CD24] hover:bg-[#1eb71e] text-white font-black text-base sm:text-lg py-3.5 px-4 rounded-xl shadow-lg transition"

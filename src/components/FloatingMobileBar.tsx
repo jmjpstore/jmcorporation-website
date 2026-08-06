@@ -23,7 +23,7 @@ export const FloatingMobileBar: React.FC<FloatingMobileBarProps> = ({ lang, onSc
 
         {/* LINE Button */}
         <a
-          href="https://line.me"
+          href="https://line.me/ti/p/TlDs6Db5eJ"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#24CD24] hover:bg-[#1eb71e] text-white py-2.5 px-1 rounded-xl flex flex-col items-center justify-center shadow transition active:scale-95"

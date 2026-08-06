@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, onToggleLang, onScrollToFo
 
             {/* LINE Button */}
             <a
-              href="https://line.me"
+              href="https://line.me/ti/p/TlDs6Db5eJ"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 sm:gap-1.5 bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md shadow transition active:scale-95 cursor-pointer shrink-0"
