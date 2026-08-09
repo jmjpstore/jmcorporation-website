@@ -181,7 +181,7 @@ export const translations = {
     },
     assessment: {
       banner: '// 最短20秒で完了！ //',
-      directPhoneTitle: 'フォーム入力が面倒な方は、今すぐ直接お電話ください！スタッフが迅速に対応します。',
+      directPhoneTitle: 'フォーム入力が面倒な方は、今すぐ直接お電話ください！スタッフが迅速に対応します。（フォームは、この下、スクロール）',
       phoneMobile: '携帯：090-6277-1999',
       phoneFixed: '固定：076-686-0049',
       fax: 'FAX：076-675-8204',
@@ -208,14 +208,13 @@ export const translations = {
       toggleAccordion: '【クリックで開閉】詳細なご希望（売却時期・訪問希望日時など）を入力する',
       hoursNote: '※営業時間：24時間年中無休で受付中',
       emailNote: '※送信先メールアドレス：jmcoporation55@gmail.com',
-      submitBtn: '高額査定！申込へ進む ＞',
+      submitBtn: 'この内容で無料査定を送信する ＞',
+      isSubmittingBtn: '送信中... 少々お待ちください',
       modal: {
-        title: 'お申し込みを受け付けました！',
-        desc: '査定お申し込みありがとうございます。以下の内容でお間違いなければ、「メールを送信する」ボタンを押して送信を完了してください。',
-        sendEmailBtn: 'jmcoporation55@gmail.com にメールで送信',
-        emailSentNote: '※クリックするとお使いのメールアプリが起動し、自動で宛先・本文が入力されます。',
-        fastCall: 'お急ぎの方はお電話が最速です！',
-        close: '閉じる',
+        title: '送信が完了いたしました！',
+        desc: 'お申し込みありがとうございます。ご入力いただいたお電話番号宛に、担当者より折り返しご連絡いたしますので今しばらくお待ちください。',
+        fastCall: 'お急ぎの場合はお電話（090-6277-1999）が最速です！',
+        close: '画面を閉じる',
       }
     },
     vibratingBtn: {
@@ -408,7 +407,7 @@ export const translations = {
     },
     assessment: {
       banner: '// Takes Only 20 Seconds! //',
-      directPhoneTitle: 'Prefer to speak directly? Call right now! Our staff will respond rapidly!',
+      directPhoneTitle: 'Prefer to speak directly? Call right now! Our staff will respond rapidly! (Scroll down for form)',
       phoneMobile: 'Mobile: 090-6277-1999',
       phoneFixed: 'Office: 076-686-0049',
       fax: 'FAX: 076-675-8204',
@@ -435,13 +434,12 @@ export const translations = {
       toggleAccordion: '【Click to Open】Optional Details (Desired selling time, preferred visit date, etc.)',
       hoursNote: '※ Operating Hours: Open 24/7 All Year Round',
       emailNote: '※ Destination Email: jmcoporation55@gmail.com',
-      submitBtn: 'GET HIGH VALUE QUOTE! PROCEED >',
+      submitBtn: 'SUBMIT FREE ASSESSMENT REQUEST NOW >',
+      isSubmittingBtn: 'Sending... Please wait',
       modal: {
-        title: 'Assessment Request Ready!',
-        desc: 'Thank you for your assessment inquiry. Please review your details below and click "Send Email to jmcoporation55@gmail.com" to complete your submission.',
-        sendEmailBtn: 'Send Email to jmcoporation55@gmail.com',
-        emailSentNote: '※ Clicking this will open your email app with the recipient and body pre-filled.',
-        fastCall: 'For urgent service, call Ahmed Ayaz (Bobby) directly!',
+        title: 'Submission Completed!',
+        desc: 'Thank you for your assessment request. Our representative will contact you shortly via phone or email.',
+        fastCall: 'For urgent inquiries, calling 090-6277-1999 is fastest!',
         close: 'Close Window',
       }
     },

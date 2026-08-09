@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, PhoneCall, ChevronDown, ChevronUp, CheckCircle, Clock, ShieldCheck, Sparkles, X, Mail } from 'lucide-react';
+import { Send, PhoneCall, ChevronDown, ChevronUp, CheckCircle, Clock, ShieldCheck, Sparkles, X, Mail, Loader2 } from 'lucide-react';
 import { Language, AssessmentFormData } from '../types';
 import { translations } from '../data/translations';
 
@@ -33,97 +33,66 @@ export const AssessmentForm: React.FC<AssessmentFormProps> = ({ lang }) => {
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedSummary, setSubmittedSummary] = useState<AssessmentFormData | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSendMailto = () => {
-    const subjectTitle = lang === 'ja' 
-      ? `【無料査定お申し込み】${formData.name} 様 (${formData.vehicleType})`
-      : `[Free Appraisal Request] ${formData.name} (${formData.vehicleType})`;
-
-    const bodyText = lang === 'ja' ? `株式会社JMコーポレーション 代表取締役 アハメド　アヤアズ（ボビー）様
-
-WEBサイトの査定フォームよりお申し込みが届きました。
-
-【お客様ご入力内容】
-■ お名前: ${formData.name} 様
-■ 電話番号: ${formData.phone}
-■ エリア (都道府県): ${formData.prefecture}
-■ 車種・車名・建機名: ${formData.vehicleType}
-■ 売却希望時期: ${formData.desiredTime || '指定なし'}
-■ 連絡可能時間帯: ${formData.preferredHours || '指定なし'}
-■ 出張訪問希望日時: ${formData.visitDateTime || '指定なし'}
-■ ご質問・ご要望（備考）:
-${formData.notes || '特になし'}
-
--------------------------------------------
-送信先メールアドレス: jmcoporation55@gmail.com
-株式会社JMコーポレーション` : `To: JM Corporation Representative Director Ahmed Ayaz (Bobby)
-
-A free appraisal request has been submitted from the website.
-
-[Customer Inquiry Details]
-■ Name: ${formData.name}
-■ Phone: ${formData.phone}
-■ Area (Prefecture): ${formData.prefecture}
-■ Vehicle / Machine: ${formData.vehicleType}
-■ Desired Selling Time: ${formData.desiredTime || 'N/A'}
-■ Preferred Contact Hours: ${formData.preferredHours || 'N/A'}
-■ Preferred Visit Date & Time: ${formData.visitDateTime || 'N/A'}
-■ Notes / Questions:
-${formData.notes || 'None'}
-
--------------------------------------------
-Destination Email: jmcoporation55@gmail.com
-JM Corporation`;
-
-    const mailtoUrl = `mailto:jmcoporation55@gmail.com?subject=${encodeURIComponent(subjectTitle)}&body=${encodeURIComponent(bodyText)}`;
-    window.location.href = mailtoUrl;
-  };
-
-  const handleFormSubmitDirect = () => {
-    const form = document.createElement('form');
-    form.action = 'https://formsubmit.co/jmcoporation55@gmail.com';
-    form.method = 'POST';
-    form.target = '_blank';
-
-    const fields: Record<string, string> = {
-      _subject: `【WEB出張査定お申し込み】${formData.name} 様 (${formData.vehicleType})`,
-      _captcha: 'false',
-      _template: 'table',
-      'お名前': formData.name,
-      '電話番号': formData.phone,
-      '都道府県': formData.prefecture,
-      '車種・建機名': formData.vehicleType,
-      '売却希望時期': formData.desiredTime || '未入力',
-      '連絡可能時間帯': formData.preferredHours || '未入力',
-      '出張訪問希望日時': formData.visitDateTime || '未入力',
-      'ご要望・備考': formData.notes || '未入力',
-    };
-
-    Object.entries(fields).forEach(([key, value]) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = value;
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.vehicleType || !formData.phone || !formData.name) {
       alert(lang === 'ja' ? '必須項目をご入力ください。' : 'Please fill in all required fields.');
       return;
     }
-    setShowModal(true);
+
+    setIsSubmitting(true);
+    const currentSummary = { ...formData };
+    setSubmittedSummary(currentSummary);
+
+    try {
+      const payload = {
+        _subject: `【WEB出張査定お申し込み】${currentSummary.name} 様 (${currentSummary.vehicleType})`,
+        _captcha: 'false',
+        _template: 'table',
+        'お名前': currentSummary.name,
+        '電話番号': currentSummary.phone,
+        '都道府県': currentSummary.prefecture,
+        '車種・建機名': currentSummary.vehicleType,
+        '売却希望時期': currentSummary.desiredTime || '指定なし',
+        '連絡可能時間帯': currentSummary.preferredHours || '指定なし',
+        '出張訪問希望日時': currentSummary.visitDateTime || '指定なし',
+        'ご要望・備考': currentSummary.notes || '指定なし',
+      };
+
+      // FormSubmit AJAX API で一発送信 (直接 jmcoporation55@gmail.com に届く)
+      await fetch('https://formsubmit.co/ajax/jmcoporation55@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      console.error('Submission request handled:', error);
+    } finally {
+      setIsSubmitting(false);
+      setShowModal(true); // 送信完了画面を表示
+      // フォームの入力項目をクリア
+      setFormData({
+        vehicleType: '',
+        prefecture: '富山県',
+        phone: '',
+        name: '',
+        desiredTime: '',
+        preferredHours: '',
+        visitDateTime: '',
+        notes: '',
+      });
+    }
   };
 
   return (
@@ -381,13 +350,24 @@ JM Corporation`;
               </div>
             </div>
 
-            {/* Submit Button: Blue rounded button with yellow bold text */}
+            {/* Submit Button: Blue rounded button with yellow bold text (One-click direct submit) */}
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full bg-[#0066CC] hover:bg-[#0052a3] text-yellow-300 font-black text-xl sm:text-2xl py-4 sm:py-5 px-6 rounded-2xl shadow-xl border-2 border-yellow-300 transition duration-300 cursor-pointer flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full bg-[#0066CC] hover:bg-[#0052a3] text-yellow-300 font-black text-xl sm:text-2xl py-4 sm:py-5 px-6 rounded-2xl shadow-xl border-2 border-yellow-300 transition duration-300 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed"
               >
-                <span>{t.assessment.submitBtn}</span>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-6 h-6 animate-spin text-yellow-300" />
+                    <span>{t.assessment.isSubmittingBtn}</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-6 h-6 shrink-0" />
+                    <span>{t.assessment.submitBtn}</span>
+                  </>
+                )}
               </button>
             </div>
 
@@ -396,10 +376,10 @@ JM Corporation`;
 
       </div>
 
-      {/* Confirmation Modal */}
+      {/* 完了確認画面 (送信完了メッセージモーダル) */}
       {showModal && (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border-4 border-amber-400 relative animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border-4 border-emerald-500 relative animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto text-center space-y-5">
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
@@ -407,69 +387,54 @@ JM Corporation`;
               <X className="w-6 h-6" />
             </button>
 
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
-                <CheckCircle className="w-10 h-10" />
-              </div>
+            {/* Checkmark Icon */}
+            <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner border-2 border-emerald-300">
+              <CheckCircle className="w-12 h-12" />
+            </div>
 
-              <h3 className="text-2xl font-black text-[#1A365D]">
+            <div className="space-y-2">
+              <h3 className="text-2xl sm:text-3xl font-black text-[#1A365D]">
                 {t.assessment.modal.title}
               </h3>
-
-              <p className="text-sm text-slate-600 font-medium">
+              <p className="text-sm sm:text-base text-slate-700 font-bold leading-relaxed bg-emerald-50 p-4 rounded-xl border border-emerald-200">
                 {t.assessment.modal.desc}
               </p>
-
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left text-xs font-semibold space-y-1.5">
-                <div><span className="font-bold text-slate-500">お名前:</span> {formData.name} 様</div>
-                <div><span className="font-bold text-slate-500">電話番号:</span> {formData.phone}</div>
-                <div><span className="font-bold text-slate-500">車種:</span> {formData.vehicleType}</div>
-                <div><span className="font-bold text-slate-500">エリア:</span> {formData.prefecture}</div>
-                {formData.desiredTime && <div><span className="font-bold text-slate-500">売却時期:</span> {formData.desiredTime}</div>}
-              </div>
-
-              {/* Email sending buttons */}
-              <div className="space-y-2 pt-1">
-                {/* 1. Primary: Send via Email App */}
-                <button
-                  type="button"
-                  onClick={handleSendMailto}
-                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3.5 sm:py-4 px-4 rounded-xl shadow-lg border-2 border-emerald-300 transition flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base"
-                >
-                  <Mail className="w-5 h-5 shrink-0" />
-                  <span>{t.assessment.modal.sendEmailBtn}</span>
-                </button>
-                <p className="text-[11px] text-slate-500 font-medium">
-                  {t.assessment.modal.emailSentNote}
-                </p>
-
-                {/* 2. Secondary: Direct Web Form Submit */}
-                <button
-                  type="button"
-                  onClick={handleFormSubmitDirect}
-                  className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl shadow transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm mt-2"
-                >
-                  <Send className="w-4 h-4 shrink-0" />
-                  <span>{lang === 'ja' ? 'WEBフォームから送信 (メールアプリ不要)' : 'Send directly via Web Form'}</span>
-                </button>
-              </div>
-
-              <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs font-bold text-amber-900">
-                {t.assessment.modal.fastCall}
-                <div className="mt-1.5">
-                  <a href="tel:09062771999" className="text-red-700 text-base font-black hover:underline">
-                    090-6277-1999 ({lang === 'ja' ? '代表取締役 アハメド　アヤアズ（ボビー）直通' : 'Direct to Ahmed Ayaz (Bobby)'})
-                  </a>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setShowModal(false)}
-                className="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-xl transition text-xs sm:text-sm"
-              >
-                {t.assessment.modal.close}
-              </button>
             </div>
+
+            {/* 送信した内容のサマリー */}
+            {submittedSummary && (
+              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left text-xs sm:text-sm font-semibold space-y-2">
+                <div className="font-bold text-slate-800 border-b border-slate-200 pb-1 mb-2 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>ご送信内容のおさらい</span>
+                </div>
+                <div><span className="font-bold text-slate-500">お名前:</span> {submittedSummary.name} 様</div>
+                <div><span className="font-bold text-slate-500">電話番号:</span> {submittedSummary.phone}</div>
+                <div><span className="font-bold text-slate-500">車種・建機名:</span> {submittedSummary.vehicleType}</div>
+                <div><span className="font-bold text-slate-500">エリア:</span> {submittedSummary.prefecture}</div>
+                {submittedSummary.desiredTime && <div><span className="font-bold text-slate-500">売却希望時期:</span> {submittedSummary.desiredTime}</div>}
+              </div>
+            )}
+
+            {/* お急ぎ電話ダイレクト案内 */}
+            <div className="bg-amber-50 p-4 rounded-2xl border border-amber-300 text-xs sm:text-sm font-bold text-amber-950 space-y-2">
+              <div>{t.assessment.modal.fastCall}</div>
+              <a
+                href="tel:09062771999"
+                className="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black text-base sm:text-lg px-6 py-3 rounded-xl shadow-md border-2 border-red-300 transition w-full"
+              >
+                <PhoneCall className="w-5 h-5 fill-white" />
+                <span>090-6277-1999 直通ダイヤル</span>
+              </a>
+            </div>
+
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition text-sm cursor-pointer"
+            >
+              {t.assessment.modal.close}
+            </button>
+
           </div>
         </div>
       )}
