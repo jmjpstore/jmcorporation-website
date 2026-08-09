@@ -11,6 +11,7 @@ import { PurchaseProcess } from './components/PurchaseProcess';
 import { CustomerReviews } from './components/CustomerReviews';
 import { CompanyOverview } from './components/CompanyOverview';
 import { CompanyOverviewPage } from './components/CompanyOverviewPage';
+import { SeoArticleSection } from './components/SeoArticleSection';
 import { AssessmentForm } from './components/AssessmentForm';
 import { VibratingBottomButton } from './components/VibratingBottomButton';
 import { Footer } from './components/Footer';
@@ -131,6 +132,12 @@ export default function App() {
       <CompanyOverview
         lang={lang}
         onOpenCompanyPage={openCompanyPage}
+      />
+
+      {/* SEO解説・ブログ記事セクション */}
+      <SeoArticleSection
+        lang={lang}
+        onScrollToForm={scrollToAssessmentForm}
       />
 
       {/* 12. 無料ネット査定フォーム */}
