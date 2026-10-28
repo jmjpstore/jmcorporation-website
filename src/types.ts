@@ -22,6 +22,10 @@ export interface CustomerReview {
   location: string;
   locationEn: string;
   rating: number;
+  badge?: string;
+  badgeEn?: string;
+  tag?: string;
+  tagEn?: string;
 }
 
 export interface AssessmentFormData {

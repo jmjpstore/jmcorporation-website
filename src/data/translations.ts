@@ -146,8 +146,9 @@ export const translations = {
       }
     },
     reviews: {
+      campaignBadge: '只今、高価買取強化中！',
       title: 'ご利用いただいたお客様の喜びの声',
-      subtitle: '富山・地域密着と確かな海外輸出ネットワークで高い評価をいただいております',
+      subtitle: '富山本社・東海支店対応エリアをはじめ全国出張査定！現在【高価買取強化中】につき満足度120％の嬉しいお声を多数いただいております',
     },
     company: {
       title: '会社概要',
@@ -372,8 +373,9 @@ export const translations = {
       }
     },
     reviews: {
+      campaignBadge: 'High-Value Campaign Active!',
       title: 'Customer Testimonials',
-      subtitle: 'Trusted by Toyama Locals & International Buyers Alike',
+      subtitle: 'Nationwide coverage from Toyama HQ & Tokai Branch! Extra high valuations in progress with up to 120% satisfaction',
     },
     company: {
       title: 'Company Profile',
@@ -456,6 +458,20 @@ export const translations = {
 
 export const customerReviewsData: CustomerReview[] = [
   {
+    id: 'r_tokai_o',
+    title: '【高価買取強化中】満足度は120％！自動車税の還付なども先回りして説明してくれました',
+    titleEn: '【High-Value Campaign】120% Satisfaction! Proactive explanation on vehicle taxes and refunds',
+    comment: '現在「高価買取強化中」と伺い、現場で使用していた重機やトラックの売却を相談しました。担当スタッフ（アヤアズさん）に対する私の顧客満足度は100％…いや、120％かな？かなり満足度が高いです！例えば「売却したら自動車税はどうなるのか？」など一般人には分かりにくい点も、お客様がわからないだろうと先回りして丁寧に説明してくれました。他社ではそんな説明は一切なかったので本当に信頼できました。トータルで大満足です。担当スタッフさんに土木業のOが絶賛していたとお伝えください！',
+    commentEn: 'We consulted JM Corporation during their High-Value Purchase Campaign to sell our heavy civil engineering machinery and trucks. My satisfaction with representative Ahmed Ayaz was 100%—no, actually 120%! He proactively explained complex points like automobile tax refunds after selling, anticipating questions everyday people wouldn’t know. Competitors never offered that. Complete satisfaction throughout—please pass my highest compliments along to Mr. Ayaz!',
+    location: '東海支店対応エリア（愛知・岐阜・三重・静岡）土木業・O様',
+    locationEn: 'Tokai Branch Service Area (Civil Engineering, Mr. O)',
+    rating: 5,
+    badge: '🔥 高価買取強化中！満足度120%',
+    badgeEn: '🔥 High-Value Campaign / 120% Satisfaction',
+    tag: '東海支店対応エリア・土木業 O様',
+    tagEn: 'Tokai Branch Area / Civil Engineering',
+  },
+  {
     id: 'r1',
     title: '代表取締役のアハメド　アヤアズ（ボビー）さんが非常に親切で丁寧でした',
     titleEn: 'Representative Director Ahmed Ayaz (Bobby) was exceptionally kind and polite',
@@ -464,6 +480,8 @@ export const customerReviewsData: CustomerReview[] = [
     location: '富山県射水市・運送会社経営',
     locationEn: 'Transport Company Owner, Imizu City, Toyama',
     rating: 5,
+    tag: '富山本社ヤード・運送会社経営',
+    tagEn: 'Toyama HQ Yard / Transport Co.',
   },
   {
     id: 'r2',
@@ -474,6 +492,8 @@ export const customerReviewsData: CustomerReview[] = [
     location: '富山県富山市・建設業代表',
     locationEn: 'Construction Manager, Toyama City',
     rating: 5,
+    tag: '富山県内・建設業代表',
+    tagEn: 'Toyama / Construction CEO',
   },
   {
     id: 'r3',
@@ -484,5 +504,7 @@ export const customerReviewsData: CustomerReview[] = [
     location: '富山県高岡市・個人のお客様',
     locationEn: 'Individual Customer, Takaoka City, Toyama',
     rating: 5,
+    tag: '富山県高岡市・個人のお客様',
+    tagEn: 'Takaoka / Private Owner',
   },
 ];
